@@ -26,11 +26,6 @@ const SignUpForm = () => {
     setFormFields(defaultFormFields);
   };
 
-  const handleChange = (event) => {
-    const { name, value } = event.target;
-    setFormFields({ ...formFields, [name]: value });
-  };
-
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (password !== confirmPassword) {
@@ -47,13 +42,15 @@ const SignUpForm = () => {
       resetFormFields();
     } catch (error) {
       if (error.code === "auth/email-already-in-use") {
-        alert("Email already in use!");
-      }
-      if (error.code === "auth/weak-password") {
-        alert("Password should be atleast 6 characters!");
+        return alert("Email already in use!");
       }
       console.log("Error creating user", error.message);
     }
+  };
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setFormFields({ ...formFields, [name]: value });
   };
 
   return (
